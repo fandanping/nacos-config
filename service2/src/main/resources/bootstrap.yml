@@ -1,0 +1,25 @@
+server:
+  port: 56020 #启动端口 命令行注入
+spring:
+  application:
+    name: service2
+  cloud:
+    nacos:
+      config:
+         server-addr: 127.0.0.1:8848,127.0.0.1:8849,127.0.0.1:8850 # 配置中心地址
+         file-extension: yaml  #dataid的名称就是application的name加file-extension
+         namespace: 526a8d3b-7b9a-4b09-a966-f00aad86f8b9 # 开发环境
+         group: TEST_GROUP # 测试组
+         #自定义扩展的dataId  可用下面方式引用多个配置文件
+         # 1、Data Id 在默认的组 DEFAULT_GROUP,不支持配置的动态刷新
+         ext-config[0]:
+             data-id: ext-config-common01.properties
+         # 2、Data Id 不在默认的组，不支持动态刷新
+         ext-config[1]:
+             data-id: ext-config-common02.properties
+             group: GLOBALE_GROUP
+         # 3、Data Id 既不在默认的组，也支持动态刷新
+         ext-config[2]:
+             data-id: ext-config-common03.properties
+             group: REFRESH_GROUP
+             refresh: true
